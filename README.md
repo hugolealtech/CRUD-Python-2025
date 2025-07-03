@@ -117,6 +117,97 @@ Para persistir dados: Substitua sqlite:///:memory: por sqlite:///dados.db no có
 📌 Resumo dos Comandos Úteis
 Ação	Comando/Método
 Ativar venv	source venv/bin/activate
+
+
+-- LISTA DE ITENS PARA AJUDAR A TESTAR A APLICAÇÃO --
+
+{
+    "nome": "Smart TV",
+    "descricao": "LG OLED 55'' 4K",
+    "quantidade": 3
+}
+,
+{
+    "nome": "Impressora",
+    "descricao": "Epson EcoTank L3250",
+    "quantidade": 5
+}
+,
+{
+    "nome": "Roteador Wi-Fi",
+    "descricao": "TP-Link Archer AX6000",
+    "quantidade": 9
+}
+,
+{
+    "nome": "Mouse Gamer",
+    "descricao": "Logitech G Pro X Superlight",
+    "quantidade": 12
+}
+,
+{
+    "nome": "Teclado Mecânico",
+    "descricao": "Keychron K2",
+    "quantidade": 7
+}
+,
+{
+    "nome": "Monitor",
+    "descricao": "Dell Ultrasharp U2723QE 27''",
+    "quantidade": 4
+}
+,
+{
+    "nome": "HD Externo",
+    "descricao": "Seagate Expansion 2TB",
+    "quantidade": 6
+}
+,
+{
+    "nome": "SSD NVMe",
+    "descricao": "Samsung 980 Pro 1TB",
+    "quantidade": 8
+}
+,
+{
+    "nome": "Drone",
+    "descricao": "DJI Mavic 3",
+    "quantidade": 3
+}
+,
+{
+    "nome": "Fone de Ouvido",
+    "descricao": "Sony WH-1000XM5",
+    "quantidade": 5
+}
+,
+
+{
+    "nome": "Fone de Ouvido",
+    "descricao": "Sony WH-1000XM5",
+    "quantidade": 5
+}
+
+
+    "id": 18,
+    "nome": "Caixa de Som Bluetooth",
+    "descricao": "JBL Charge 5",
+    "quantidade": 7
+}
+
+{
+    "id": 19,
+    "nome": "Projetor",
+    "descricao": "Epson EB-U05",
+    "quantidade": 2
+}
+
+{
+    "id": 20,
+    "nome": "Carregador Portátil",
+    "descricao": "Anker PowerCore 26800mAh",
+    "quantidade": 10
+}
 Instalar dependências	pip install -r requirements.txt
 Rodar a API	python app.py
 Parar a API	CTRL + C
