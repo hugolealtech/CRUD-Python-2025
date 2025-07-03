@@ -12,7 +12,9 @@ Abra o terminal e execute:
 
 bash
 git clone (https://github.com/hugolealtech/CRUD-Python-2025.git)
-cd nome-do-repositorio
+
+cd CRUD-Python-2025;
+
 🐍 2. Configurar o Ambiente Virtual (venv)
 Criar e Ativar o venv
 No macOS/Linux:
