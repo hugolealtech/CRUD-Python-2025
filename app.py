@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# Configuração do SQLite em memória
+# Configuração do SQLite no MariaDB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://flask_user:sua_senha_segura@192.168.1.3/crud_flask'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -41,17 +41,52 @@ def criar_item():
     if not dados or 'nome' not in dados:
         return jsonify({'erro': 'Dados inválidos ou nome não fornecido'}), 400
 
-    novo_item = Item(
+    # Verifica se o item já existe (com mesmo nome E descrição)
+    item_existente = Item.query.filter_by(
         nome=dados['nome'],
-        descricao=dados.get('descricao', ''),
-        quantidade=dados.get('quantidade', 1)
-    )
+        descricao=dados.get('descricao', '')
+    ).first()
 
-    db.session.add(novo_item)
+    if item_existente:
+        # Item existe: incrementa a quantidade
+        nova_quantidade = item_existente.quantidade + dados.get('quantidade', 1)
+        item_existente.quantidade = nova_quantidade
+        db.session.commit()
+        return jsonify(item_existente.to_dict()), 200
+    else:
+        # Item não existe: cria novo
+        novo_item = Item(
+            nome=dados['nome'],
+            descricao=dados.get('descricao', ''),
+            quantidade=dados.get('quantidade', 1)
+        )
+        db.session.add(novo_item)
+        db.session.commit()
+        return jsonify(novo_item.to_dict()), 201
+
+@app.route('/itens/decrementar', methods=['POST'])
+def decrementar_item():
+    dados = request.get_json()
+
+    if not dados or 'nome' not in dados:
+        return jsonify({'erro': 'Dados inválidos ou nome não fornecido'}), 400
+
+    item = Item.query.filter_by(
+        nome=dados['nome'],
+        descricao=dados.get('descricao', '')
+    ).first()
+
+    if not item:
+        return jsonify({'erro': 'Item não encontrado'}), 404
+
+    # Verifica se a quantidade não fica negativa
+    nova_quantidade = item.quantidade - dados.get('quantidade', 1)
+    if nova_quantidade < 0:
+        return jsonify({'erro': 'Quantidade não pode ser negativa'}), 400
+
+    item.quantidade = nova_quantidade
     db.session.commit()
-
-    return jsonify(novo_item.to_dict()), 201
-
+    return jsonify(item.to_dict()), 200
 
 # GET - Listar todos os itens
 @app.route('/itens', methods=['GET'])
